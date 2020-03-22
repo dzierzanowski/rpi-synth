@@ -13,4 +13,4 @@ sudo fluidsynth -i -a alsa -m alsa_seq -s -g 0.5 \
                 -o synth.midi-bank-select=mma \
                 /home/pi/Sounds/* &>/dev/null &
 
-~/fluidsynth-rpi-bootstrap/connect-midi.sh
+~/fluidsynth-rpi-bootstrap/connect-midi.sh &>/dev/null &
