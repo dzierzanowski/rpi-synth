@@ -15,12 +15,11 @@ sudo apt update
 sudo apt install fluidsynth
 ```
 
-### SoundFonts
-```
-mkdir ~/Sounds
-```
-Copy or symlink SoundFonts into this directory. FluidSynth should ship with
-some default SoundFonts located in `/usr/share/sounds/sf2`.
+### SoundFont
+Get a desired SoundFont and place it wherever you like, then note this
+location. FluidSynth should ship with some default SoundFonts located in
+`/usr/share/sounds/sf2`. You can also check `SOUNDFONTS.md` for a list of
+decent locations to obtain a SoundFont.
 
 
 ## Installation
@@ -29,10 +28,17 @@ Clone this repository to `pi` user's home directory with:
 git clone https://github.com/Waked/fluidsynth-rpi-bootstrap.git
 ```
 
-Then, add the following line in `~/.profile`:
+Then, copy (or link) files from `systemd` to `/etc/systemd/system` and enable
+services:
 ```
-/home/pi/fluidsynth-rpi-bootstrap/run.sh
+cp ~/fluidsynth-rpi-bootstrap/systemd/fluidsynth.service /etc/systemd/system/
+cp ~/fluidsynth-rpi-bootstrap/systemd/midi-autoconnect.service /etc/systemd/system/
+sudo systemctl enable fluidsynth
+sudo systemctl enable midi-autoconnect
 ```
+
+The Raspberry Pi should now boot with Fluidsynth and automatically connect
+the first MIDI device to it.
 
 
 ## Tips
@@ -55,22 +61,12 @@ This can be easily temporarily reverted with:
 sudo mount -o remount,rw /
 ```
 
-### Connect MIDI devices on USB device
-Connect your MIDI controller and check its `vendor_id:product_id` with:
-```
-lsusb
-```
+### Instruments vs. programs vs. soundbanks
+When in the Fluidsynth's console (`telnet localhost 9800`), you can check what
+instruments are available for you by checking font ID with: `fonts` and then
+instruments with: `inst <id>`. Each instrument will have two three-digit
+numbers associated with it - the first one is the bank number, the second is
+the program number. In order to use an instrument from a bank other than the
+nullth, first send a bank change message, then a program change message with
+your MIDI controller.
 
-Create a device rule file such as `/etc/udev/rules.d/50-nektar.rules` and put
-this line inside:
-```
-ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="<vendor_id>", ATTR{idProduct}=="<product_id>", RUN+="/home/pi/fluidsynth-rpi-bootstrap/connect-midi.sh"
-```
-
-
-## Caveats
-
-I have not yet figured how to switch between fonts and between banks within a
-font from a controller. Therefore, you might want to put only one font in the
-`~/Sounds` directory, or modify the script to select the one you desire.
- 

@@ -1,0 +1,11 @@
+[Unit]
+Description=Connect first MIDI input device to FluidSynth
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/pi/fluidsynth-rpi-bootstrap/autoconnect.sh
+
+[Install]
+WantedBy=multi-user.target
+

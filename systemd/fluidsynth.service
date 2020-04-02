@@ -1,0 +1,16 @@
+[Unit]
+Description=FluidSynth MIDI Synthesizer
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/fluidsynth -i -a alsa -m alsa_seq -s \
+ -o audio.realtime-prio=80 \
+ -o audio.alsa.device=hw:0 \
+ -o synth.midi-bank-select=mma \
+ /usr/share/sounds/sf2/FluidR3_GM.sf2 
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
