@@ -1,10 +1,13 @@
-# fluidsynth-rpi-bootstrap
-Bootstrap script to run FluidSynth headless on a Raspberry Pi with MIDI
-keyboard input.
+# rpi-synth
+Bootstrap script to run [FluidSynth] and [setBfree] headless on a Raspberry Pi
+with MIDI keyboard input.
 
-The script has been tested for FluidSynth 2.1.1 on Raspbian on a Raspberry Pi 4
-rev. 1.2 with JustBoom DAC Standard HAT and a Nektar Impact LX61+ controller.
-It takes about 30 to 60 seconds to boot.
+The script has been tested for FluidSynth 2.1.1 and setBfree 0.8.11  on
+Raspbian on a Raspberry Pi 4 rev. 1.2 with JustBoom DAC Standard HAT and a
+Nektar Impact LX61+ controller. It takes about 30 seconds to boot.
+
+[FluidSynth]: https://github.com/FluidSynth/fluidsynth
+[setBfree]: https://github.com/pantherb/setBfree
 
 
 ## Requirements
@@ -16,29 +19,41 @@ sudo apt install fluidsynth
 ```
 
 ### SoundFont
-Get a desired SoundFont and place it wherever you like, then note this
-location. FluidSynth should ship with some default SoundFonts located in
-`/usr/share/sounds/sf2`. You can also check `SOUNDFONTS.md` for a list of
-decent locations to obtain a SoundFont.
+Get a desired SoundFont and place it in the `sounds` directory. FluidSynth
+should ship with some default SoundFonts located in `/usr/share/sounds/sf2`,
+I recommend browsing the Internet for your favorite founds and compiling them
+into a single SoundFont using [Polyphone].
+
+`SOUNDFONTS.md` contains a curated list of decent locations to obtain
+SoundFonts.
+
+[Polyphone]: https://github.com/davy7125/polyphone
 
 
 ## Installation
 Clone this repository to `pi` user's home directory with:
 ```
-git clone https://github.com/Waked/fluidsynth-rpi-bootstrap.git
+git clone https://github.com/Waked/rpi-synth.git
 ```
 
-Then, copy (or link) files from `systemd` to `/etc/systemd/system` and enable
-services:
+Then, copy (or link) files from `systemd` to `~/.config/systemd/user/` and
+enable services:
 ```
-cp ~/fluidsynth-rpi-bootstrap/systemd/fluidsynth.service /etc/systemd/system/
-cp ~/fluidsynth-rpi-bootstrap/systemd/midi-autoconnect.service /etc/systemd/system/
-sudo systemctl enable fluidsynth
-sudo systemctl enable midi-autoconnect
+mkdir -p ~/.config/systemd/user
+cd ~/.config/systemd/user
+ln -s ~/rpi-synth/systemd/* .
+systemctl --user enable *
 ```
 
-The Raspberry Pi should now boot with Fluidsynth and automatically connect
-the first MIDI device to it.
+The Raspberry Pi should now boot with FluidSynth and setBfree and automatically
+connect the first MIDI device to them.
+
+Adjust the `fluidsynth.cfg` and `setBfree.cfg` according to your HiFi hat and 
+SoundFont's configuration, or taste. Documentation for setBfree is found in the
+binary's help (but the config itself contains lots of comments), while
+FluidSynth is documented in [the wiki]. 
+
+[the wiki]: https://github.com/FluidSynth/fluidsynth/wiki/UserManual#shell-commands
 
 
 ## Tips

@@ -1,0 +1,12 @@
+[Unit]
+Description=JACK Audio Connection Kit Daemon
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/jackd -R -d alsa -d hw:0 -p 256 -X raw
+Restart=always
+
+[Install]
+WantedBy=default.target
+

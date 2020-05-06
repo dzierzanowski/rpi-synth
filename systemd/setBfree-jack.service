@@ -1,0 +1,15 @@
+[Unit]
+Description=setBfree Hammond B3 Synthesizer
+After=syslog.target
+Requires=jackd.service
+ConditionUser=pi
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/rpi-synth
+ExecStart=/usr/bin/setBfree -c setBfree.cfg
+Restart=always
+
+[Install]
+WantedBy=default.target
+

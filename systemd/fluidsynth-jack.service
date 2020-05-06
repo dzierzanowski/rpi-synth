@@ -1,0 +1,17 @@
+[Unit]
+Description=FluidSynth MIDI Synthesizer
+After=syslog.target
+Requires=jackd.service
+ConditionUser=pi
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/rpi-synth
+ExecStart=/usr/bin/fluidsynth -i -a jack -j -m jack -s \
+  -f fluidsynth.cfg \
+  sounds/wakeds-choice.sf2
+Restart=always
+
+[Install]
+WantedBy=default.target
+

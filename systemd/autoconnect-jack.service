@@ -1,0 +1,15 @@
+[Unit]
+Description=RaspiSynth - autoconnect JACK ports
+After=syslog.target
+Requires=jackd.service
+ConditionUser=pi
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/rpi-synth
+ExecStart=bash autoconnect.sh
+Restart=always
+
+[Install]
+WantedBy=default.target
+

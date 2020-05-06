@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
 
 while true; do
-    if [[ $( aconnect -l | grep "type=kernel,card=1" ) && $( aconnect -l | grep "FLUID Synth" ) ]]; then
-        input_dev_id=$(aconnect -l | grep "type=kernel,card=1" | awk '{print $2}')
-        output_dev_id=$(aconnect -l | grep "FLUID Synth" | awk '{print $2}')
-
-        # Connect keyboard output with FluidSynth input.
-        aconnect ${input_dev_id}0 ${output_dev_id}0 &>/dev/null
-    fi
+    jack_connect "in-hw-1-0-0-Impact-LX61--MIDI-1" "fluidsynth:midi_00"
+    jack_connect "in-hw-1-0-0-Impact-LX61--MIDI-1" "setBfree:midi_in"
 
     sleep 1
 done
