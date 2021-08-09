@@ -49,9 +49,9 @@ The Raspberry Pi should now boot with FluidSynth and setBfree and automatically
 connect the first MIDI device to them.
 
 Adjust the `fluidsynth.cfg` and `setBfree.cfg` according to your HiFi hat and 
-SoundFont's configuration, or taste. Documentation for setBfree is found in the
-binary's help (but the config itself contains lots of comments), while
-FluidSynth is documented in [the wiki]. 
+SoundFont's configuration, or taste, and reboot. Documentation for setBfree is
+found in the binary's help (but the config itself contains lots of comments),
+while FluidSynth is documented in [the wiki].
 
 [the wiki]: https://github.com/FluidSynth/fluidsynth/wiki/UserManual#shell-commands
 
