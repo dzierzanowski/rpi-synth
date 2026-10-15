@@ -1,0 +1,26 @@
+set synth.sample-rate 48000
+set audio.realtime-prio 99
+set synth.midi-bank-select mma
+set synth.ladspa.active true
+
+prog 0 0
+prog 1 1
+prog 2 2
+
+router_clear
+
+router_begin note
+router_chan 0 2 1 0
+router_end
+
+router_begin cc
+router_chan 0 2 1 0
+router_end
+
+router_begin note
+router_chan 9 9 1 0
+router_end
+
+router_begin cc
+router_chan 9 9 1 0
+router_end

@@ -6,4 +6,6 @@ Here's a list of decent sources of SoundFonts:
 - `https://www.audiobombs.com` (this one scares with mandatory registration and
   a cart icon, but the fonts are actually mostly free)
 - `https://www.polyphone-soundfonts.com/download-soundfonts`
+- `https://musical-artifacts.com` (this one seems actually active and has nice,
+fresh fonts; for some reason, the download speeds are terrible)
 
